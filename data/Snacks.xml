@@ -1,0 +1,34 @@
+<products>
+    <product>
+        <itemNumber>601</itemNumber>
+        <name>Chips</name>
+        <category>snacks</category>
+        <subcategory>snacks</subcategory>
+        <price>2.98</price>
+        <quantity>98</quantity>
+    </product>
+    <product>
+        <itemNumber>602</itemNumber>
+        <name>Crackers</name>
+        <category>snacks</category>
+        <subcategory>snacks</subcategory>
+        <price>3.98</price>
+        <quantity>90</quantity>
+    </product>
+    <product>
+        <itemNumber>603</itemNumber>
+        <name>Nuts</name>
+        <category>snacks</category>
+        <subcategory>snacks</subcategory>
+        <price>3.98</price>
+        <quantity>98</quantity>
+    </product>
+    <product>
+        <itemNumber>604</itemNumber>
+        <name>Popcorn</name>
+        <category>snacks</category>
+        <subcategory>snacks</subcategory>
+        <price>5.98</price>
+        <quantity>75</quantity>
+    </product>
+</products>

@@ -1,0 +1,51 @@
+{"products":[
+    {
+        "itemNumber": "401",
+        "name": "Cereals",
+        "category": "breakfast",
+        "subcategory": "cereal-breakfast",
+        "price": "4.99",
+        "quantity": "47"
+    },
+    {
+        "itemNumber": "402",
+        "name": "Pancake",
+        "category": "breakfast",
+        "subcategory": "pancake-breakfast",
+        "price": "2.49",
+        "quantity": "50"
+    },
+    {
+        "itemNumber": "403",
+        "name": "Waffle",
+        "category": "breakfast",
+        "subcategory": "pancake-breakfast",
+        "price": "2.49",
+        "quantity": "50"
+    },
+    {
+        "itemNumber": "404",
+        "name": "OatMeal",
+        "category": "breakfast",
+        "subcategory": "oatmeal-breakfast",
+        "price": "6.49",
+        "quantity": "50"
+    },
+    {
+        "itemNumber": "405",
+        "name": "Bread",
+        "category": "breakfast",
+        "subcategory": "bread-breakfast",
+        "price": "2.49",
+        "quantity": "49"
+    },
+    {
+        "itemNumber": "406",
+        "name": "Muffins",
+        "category": "breakfast",
+        "subcategory": "rollbacks-breakfast",
+        "price": "2.49",
+        "quantity": "46"
+    }
+]
+}

@@ -1,0 +1,59 @@
+{"products":[
+    {
+        "itemNumber": "301",
+        "name": "CannedGoods",
+        "category": "pantry",
+        "subcategory": "cannedgoods-pantry",
+        "price": "5.49",
+        "quantity": "49"
+    },
+    {
+        "itemNumber": "302",
+        "name": "CannedVegetables",
+        "category": "pantry",
+        "subcategory": "vegetables-pantry",
+        "price": "8.49",
+        "quantity": "5"
+    },
+    {
+        "itemNumber": "303",
+        "name": "Spices",
+        "category": "pantry",
+        "subcategory": "condiments-pantry",
+        "price": "1.99",
+        "quantity": "8"
+    },
+    {
+        "itemNumber": "304",
+        "name": "Pasta",
+        "category": "pantry",
+        "subcategory": "pizza-pantry",
+        "price": "5.49",
+        "quantity": "30"
+    },
+    {
+        "itemNumber": "305",
+        "name": "PizzaLarge",
+        "category": "pantry",
+        "subcategory": "pizza-pantry",
+        "price": "8.49",
+        "quantity": "8"
+    },
+    {
+        "itemNumber": "306",
+        "name": "Peanutbutter",
+        "category": "pantry",
+        "subcategory": "peanut-pantry",
+        "price": "10.49",
+        "quantity": "5"
+    },
+    {
+        "itemNumber": "307",
+        "name": "Flour",
+        "category": "pantry",
+        "subcategory": "rollbacks-pantry",
+        "price": "9.49",
+        "quantity": "3"
+    }
+]
+}

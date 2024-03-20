@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Error2</h1>
+</body>
+</html>
+
+
+<?php
+
+session_start();
+
+$admins = $_SESSION['FirstName'];
+
+if ($admins !== "chanakyaadmin") {
+    header("Location: ../HTML/Login.php");
+    exit();
+}
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "HW5";
+$table = "Inventory"; // Replace with your actual table name
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Initialize $TDate to an empty string
+$TDate = "";
+
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get the selected date from the form
+    $TDate = $_POST['transactionDate'];
+}
+
+// SQL query to retrieve data for the selected date
+$sql = "SELECT cu.CustomerID AS CID, cu.FirstName AS FN, TIMESTAMPDIFF(YEAR, STR_TO_DATE(DOB, '%m/%d/%Y'), CURDATE()) as AGE , COUNT(t.TransactionID) AS TC
+FROM Customers cu
+JOIN Carts c ON cu.CustomerID = c.CustomerID
+JOIN Transactions t ON c.TransactionID = t.TransactionID
+WHERE TIMESTAMPDIFF(YEAR, STR_TO_DATE(DOB, '%m/%d/%Y'), CURDATE()) > 20
+GROUP BY cu.CustomerID, cu.FirstName, cu.LastName, cu.DOB
+HAVING TC > 3;";
+
+
+$result = $conn->query($sql);
+
+// Check if the query was successful
+if ($result === false) {
+    die("Error executing the query: " . $conn->error);
+}
+
+// Close the connection
+$conn->close();
+
+?>

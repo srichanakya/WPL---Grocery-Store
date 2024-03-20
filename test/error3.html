@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Error3</h1>
+</body>
+</html>
+
+
+
+
+SELECT * FROM `Transactions` order by TransactionID desc limit 1;
+
+
+<!-- ?\ -->
+
+
+<!-- To display items in myaccount -->
+
+SELECT TransactionID, ItemNumber, Quantity, Cartstatus
+FROM `Carts`
+WHERE CustomerID = '6562821d49391' and TransactionID = (
+    SELECT TransactionID
+    FROM `Transactions`
+    ORDER BY TransactionID DESC
+    LIMIT 1
+);
+
+
+
+
+
+
+
+<!-- customer with 2 transactions -->
+
+SELECT c.customerID, COUNT(t.TransactionID) as transaction_count
+FROM Carts c
+JOIN Transactions t ON c.TransactionID = t.TransactionID
+WHERE t.TransactionDate = '2023-12-02'
+GROUP BY c.customerID
+HAVING transaction_count > 2;
+
+<!-- final customer with 2 transactions -->
+
+SELECT cu.CustomerID, cu.FirstName, COUNT(t.TransactionID) as transaction_count
+FROM Carts c
+JOIN Transactions t ON c.TransactionID = t.TransactionID
+JOIN Customers cu ON c.customerID = cu.customerID
+WHERE t.TransactionDate = '2023-12-02'
+GROUP BY cu.CustomerID, cu.FirstName
+HAVING transaction_count > 2;
+
+
+SELECT cu.CustomerID, cu.FirstName, t.TransactionDate, COUNT(t.TransactionID) as transaction_count
+FROM Carts c
+JOIN Transactions t ON c.TransactionID = t.TransactionID
+JOIN Customers cu ON c.customerID = cu.customerID
+WHERE t.TransactionDate = '2023-12-02'
+GROUP BY cu.CustomerID, cu.FirstName, t.TransactionDate
+HAVING transaction_count > 2;
+
+
+<!-- Age 20 years and 3 transactions -->
+
+SELECT cu.CustomerID AS CID, cu.FirstName AS FN, cu.LastName AS LN, cu.DOB, COUNT(t.TransactionID) AS TC
+FROM Customers cu
+JOIN Carts c ON cu.CustomerID = c.CustomerID
+JOIN Transactions t ON c.TransactionID = t.TransactionID
+WHERE TIMESTAMPDIFF(YEAR, cu.DOB, CURDATE()) > 20
+GROUP BY cu.CustomerID, cu.FirstName, cu.LastName, cu.DOB
+HAVING TC > 3;
+
+<!-- with age -->
+SELECT cu.CustomerID AS CID, cu.FirstName AS FN, cu.LastName AS LN, TIMESTAMPDIFF(YEAR, STR_TO_DATE(DOB, '%m/%d/%Y'), CURDATE()) as AGE , COUNT(t.TransactionID) AS TC
+FROM Customers cu
+JOIN Carts c ON cu.CustomerID = c.CustomerID
+JOIN Transactions t ON c.TransactionID = t.TransactionID
+WHERE TIMESTAMPDIFF(YEAR, STR_TO_DATE(DOB, '%m/%d/%Y'), CURDATE()) > 20
+GROUP BY cu.CustomerID, cu.FirstName, cu.LastName, cu.DOB
+HAVING TC > 3;
+
+
+
+<!-- zipcode -->
+
+SELECT cu.CustomerID as CID, cu.FirstName as FN, t.TransactionDate as TD, COUNT(t.TransactionID) as TC
+        FROM Carts c
+        JOIN Transactions t ON c.TransactionID = t.TransactionID
+        JOIN Customers cu ON c.CustomerID = cu.CustomerID
+        WHERE cu.MyAddress like '%%'
+         
+        GROUP BY cu.CustomerID, cu.FirstName, t.TransactionDate
+        HAVING TC > 2;
+
+
+
+
+
+
+
+<!-- My Account -->
+$sql = "";
+
+switch ($selectedOption) {
+    case 'specificMonth':
+       
+        $sql = SELECT *
+        FROM Transactions t
+        JOIN Carts c ON c.TransactionID = t.TransactionID
+        WHERE CustomerID = '6562821d49391'
+          AND MONTH(t.TransactionDate) = '12';
+        break;
+    case 'last3Months':
+        // Show transactions in the last 3 months
+        $sql = SELECT *
+        FROM Transactions t
+        JOIN Carts c ON c.TransactionID = t.TransactionID
+        WHERE CustomerID = '6562821d49391'
+          AND t.TransactionDate >= CURDATE() - INTERVAL 3 MONTH;
+        break;
+    case 'specificYear':
+        // Show transactions in a specific year
+        SELECT *
+FROM Transactions t
+JOIN Carts c ON c.TransactionID = t.TransactionID
+WHERE CustomerID = '6562821d49391'
+  AND YEAR(t.TransactionDate) = 2023;
+
+        break;
+    default:
+        // No specific option selected
+        // You can handle this case based on your requirements
+        break;
+}
+
+$result = $conn->query($sql);
+
+// Check if the query was successful
+if ($result === false) {
+    die("Error executing the query: " . $conn->error);
+}
+
+
+
+
+
+
+// last 3 month, specified year and month
+$selectedOption = "";
+$selectedValue = "";
+
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get the values from the form
+    $selectedOption = $_POST['selectedOption'];
+    $selectedValue = $_POST['selectedValue'];
+}
+
+
+$sqlSwitch = "";
+
+switch ($selectedOption) {
+    case 'specificMonth':
+        // Show transactions in a specific month
+        $sql = "SELECT t.TransactionID as ID, t.TransactionDate AS TDATE, t.TransactionStatus AS STATUS, t.Totalprice AS PRICE
+        FROM Transactions t
+        JOIN Carts c ON c.TransactionID = t.TransactionID
+        WHERE CustomerID = '6562821d49391'
+          AND MONTH(t.TransactionDate) = '$selectedValue'";
+        break;
+    case 'last3Months':
+        // Show transactions in the last 3 months
+        $sql = "SELECT t.TransactionID as ID, t.TransactionDate AS TDATE, t.TransactionStatus AS STATUS, t.Totalprice AS PRICE
+        FROM Transactions t
+        JOIN Carts c ON c.TransactionID = t.TransactionID
+        WHERE CustomerID = '6562821d49391'
+          AND t.TransactionDate >= CURDATE() - INTERVAL 3 MONTH";
+        break;
+    case 'specificYear':
+        // Show transactions in a specific year
+        $sql = "SELECT t.TransactionID as ID, t.TransactionDate AS TDATE, t.TransactionStatus AS STATUS, t.Totalprice AS PRICE
+        FROM Transactions t
+        JOIN Carts c ON c.TransactionID = t.TransactionID
+        WHERE CustomerID = '6562821d49391'
+          AND YEAR(t.TransactionDate) = '$selectedValue'";
+        break;
+    default:
+        // No specific option selected
+        // You can handle this case based on your requirements
+        break;
+}
+
+$resultSwitch = $conn->query($sqlSwitch);
+
+// Check if the query was successful
+if ($resultSwitch === false) {
+    die("Error executing the query: " . $conn->error);
+}

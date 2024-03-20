@@ -1,0 +1,29 @@
+{
+    "products": [
+      {
+        "itemNumber": "201",
+        "name": "Product A",
+        "category": "Electronics",
+        "subcategory": "Laptops",
+        "price": "999.99",
+        "quantity": "10"
+      },
+      {
+        "itemNumber": "205",
+        "name": "Product B",
+        "category": "Clothing",
+        "subcategory": "Shoes",
+        "price": "49.99",
+        "quantity": "25"
+      },
+      {
+        "itemNumber": "206",
+        "name": "Product C",
+        "category": "Electronics",
+        "subcategory": "TVs",
+        "price": "499.99",
+        "quantity": "5"
+      }
+    ]
+  }
+  
